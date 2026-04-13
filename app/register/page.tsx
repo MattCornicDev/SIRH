@@ -56,14 +56,15 @@ export default function RegisterPage() {
         router.push("/directory");
         router.refresh();
       }, 1500);
-    } catch (err: any) {
-      // Traduction des erreurs fréquentes de Supabase
-      if (!err) return setError("Une erreur inconnue est survenue.");
+    } catch (err: unknown) {
+      if (err instanceof Error) {
+        // Traduction des erreurs fréquentes de Supabase
 
-      if (err.message.includes("User already registered")) {
-        setError("Un compte existe déjà avec cette adresse email.");
-      } else {
-        setError("Une erreur est survenue lors de l'inscription.");
+        if (err.message.includes("User already registered")) {
+          setError("Un compte existe déjà avec cette adresse email.");
+        } else {
+          setError("Une erreur est survenue lors de l'inscription.");
+        }
       }
     } finally {
       setIsLoading(false);
