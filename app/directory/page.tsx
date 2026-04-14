@@ -11,7 +11,12 @@ const getEmployees = async () => {
   return data || [];
 };
 
-export default async function DirectoryPage() {
+export default async function DirectoryPage(props: {
+  userEmail: string | undefined;
+  companyName: string | null;
+  companyId: string | null;
+  children: React.ReactNode;
+}) {
   const employees = await getEmployees();
 
   return (
