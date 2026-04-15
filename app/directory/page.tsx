@@ -18,7 +18,7 @@ export default async function DirectoryPage(props: {
   const employees = await getEmployees();
 
   return (
-    <div className="min-h-screen bg-slate-50 p-8 font-sans">
+    <div className=" bg-slate-50 p-8 font-sans">
       <div className="max-w-6xl mx-auto space-y-6">
         {/* Header de la page */}
         <div className="flex justify-between items-center bg-white p-6 rounded-xl shadow-sm border border-slate-200">

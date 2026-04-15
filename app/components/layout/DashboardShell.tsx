@@ -72,13 +72,10 @@ export const DashboardShell = ({
       {/* SIDEBAR PRINCIPALE */}
       <aside
         className={`fixed inset-y-0 left-0 z-50 bg-slate-900 text-slate-300 shadow-2xl overflow-hidden
-          /* Both the sidebar width AND the main content margin share this exact same animation */
           transition-all duration-500 ease-[cubic-bezier(0.25,1,0.5,1)]
           
-          /* Mobile: Off-screen or On-screen */
           ${isMobileOpen ? "translate-x-0 w-64" : "-translate-x-full w-64"}
           
-          /* Desktop: Dynamic width based on toggle state */
           md:translate-x-0 ${isDesktopExpanded ? "md:w-64" : "md:w-20"}
         `}
       >
@@ -157,7 +154,6 @@ export const DashboardShell = ({
       {/* CONTENU PRINCIPAL */}
       <div
         className={`flex-1 flex flex-col min-w-0 
-          /* This is the magic! The margin-left syncs perfectly with the sidebar width */
           transition-all duration-500 ease-[cubic-bezier(0.25,1,0.5,1)] 
           ${isDesktopExpanded ? "md:ml-64" : "md:ml-20"}
         `}

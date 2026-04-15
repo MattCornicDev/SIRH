@@ -93,7 +93,7 @@ export default function NewEmployeePage() {
   };
 
   return (
-    <div className="min-h-screen bg-slate-50 p-8 font-sans">
+    <div className="bg-slate-50 p-8 font-sans">
       <div className="max-w-2xl mx-auto space-y-6">
         {/* Header */}
         <div>
