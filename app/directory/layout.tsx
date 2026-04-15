@@ -1,6 +1,7 @@
-import { createClient } from "@/utils/supabase/server";
-import DirectoryPage from "./page";
 import { redirect } from "next/navigation";
+import { createClient } from "@/utils/supabase/server";
+import { DashboardShell } from "@components/layout/DashboardShell";
+import StoreInitializer from "@components/storeInitializer"; // <-- LE PONT
 
 export default async function DirectoryLayout({
   children,
@@ -9,30 +10,29 @@ export default async function DirectoryLayout({
 }) {
   const supabase = await createClient();
 
-  // 1. On récupère la réponse brute pour comprendre
-  const authResponse = await supabase.auth.getUser();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+  if (!user) redirect("/login");
 
-  const user = authResponse.data.user;
-
-  if (authResponse.error || !user) {
-    console.log("Redirection vers /login !");
-    redirect("/login");
-  }
-
-  // Récupérer le profil de l'employé ET les infos de sa boite en une seule fois
-  const { data: profile } = await supabase
+  const { data: profiles } = await supabase
     .from("employees")
     .select("*, companies(name)")
-    .eq("user_id", user.id)
-    .single();
+    .eq("user_id", user.id);
+
+  const activeProfile = profiles && profiles.length > 0 ? profiles[0] : null;
 
   return (
-    <DirectoryPage
-      userEmail={user.email}
-      companyName={profile?.companies?.name}
-      companyId={profile?.company_id} // Crucial pour les formulaires enfants
-    >
-      {children}
-    </DirectoryPage>
+    <>
+      {/* Le pont charge les données dans Zustand silencieusement */}
+      <StoreInitializer user={user} activeProfile={activeProfile} />
+
+      <DashboardShell
+        userEmail={user.email}
+        companyName={activeProfile?.companies?.name || "TeamFlow"}
+      >
+        {children}
+      </DashboardShell>
+    </>
   );
 }

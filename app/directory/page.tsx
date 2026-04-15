@@ -12,10 +12,8 @@ const getEmployees = async () => {
 };
 
 export default async function DirectoryPage(props: {
-  userEmail: string | undefined;
-  companyName: string | null;
-  companyId: string | null;
-  children: React.ReactNode;
+  user: object;
+  profile: object;
 }) {
   const employees = await getEmployees();
 
@@ -32,7 +30,7 @@ export default async function DirectoryPage(props: {
               Gérez les accès et les profils de votre équipe.
             </p>
           </div>
-          <Link href={"directory/new"}>
+          <Link href={"/directory/new"}>
             <button className="px-4 py-2 bg-brand-500 text-white font-semibold rounded-lg shadow-sm hover:bg-brand-600 transition-colors flex items-center gap-2">
               + Ajouter un collaborateur
             </button>
