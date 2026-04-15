@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { useRouter } from "next/navigation";
+import { redirect, useRouter } from "next/navigation";
 import { Mail, Lock, Loader2, ShieldAlert } from "lucide-react";
 import { Input } from "@components/ui/Input";
 import { createClient } from "@/utils/supabase/client";
@@ -115,8 +115,7 @@ export default function LoginPage() {
               : "Vous avez déjà un compte ?"}
             <button
               onClick={() => {
-                setIsLogin(!isLogin);
-                setError(null);
+                redirect("/register");
               }}
               className="ml-2 font-semibold text-brand-600 hover:text-brand-800 transition-colors"
             >
