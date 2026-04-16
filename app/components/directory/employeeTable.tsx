@@ -12,14 +12,40 @@ export async function EmployeeTable({
   currentPage: number;
 }) {
   const supabase = await createClient();
-  // TODO: A ENLEVER ( pour check le skeleton )
-  await new Promise((resolve) => setTimeout(resolve, 300));
+
+  // 1. 🛡️ IDENTIFICATION : On récupère l'utilisateur actuellement connecté
+  const {
+    data: { user },
+    error: authError,
+  } = await supabase.auth.getUser();
+
+  if (authError || !user) {
+    return <div className="p-4 text-danger-500">Vous devez être connecté.</div>;
+  }
+
+  // 2. 🏢 CONTEXTE : On cherche à quelle entreprise appartient cet utilisateur
+  const { data: currentUserProfile } = await supabase
+    .from("employees")
+    .select("company_id")
+    .eq("user_id", user.id)
+    .single();
+
+  if (!currentUserProfile?.company_id) {
+    return (
+      <div className="p-4 text-danger-500">
+        Aucune entreprise associée à ce profil.
+      </div>
+    );
+  }
+
   const from = (currentPage - 1) * ITEMS_PER_PAGE;
   const to = from + ITEMS_PER_PAGE - 1;
 
+  // 3. 🔒 LE FILTRE : On ajoute .eq("company_id", ...) à la requête !
   let dbQuery = supabase
     .from("employees")
     .select("*", { count: "exact" })
+    .eq("company_id", currentUserProfile.company_id) // LA SÉCURITÉ EST ICI !
     .order("last_name", { ascending: true })
     .range(from, to);
 
@@ -85,9 +111,13 @@ export async function EmployeeTable({
                     <span className="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-semibold bg-emerald-100 text-emerald-700">
                       Actif
                     </span>
-                  ) : (
+                  ) : emp.status === "en_pause" ? (
                     <span className="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-semibold bg-amber-100 text-amber-700">
                       En pause
+                    </span>
+                  ) : (
+                    <span className="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-semibold bg-slate-100 text-slate-500">
+                      Inactif
                     </span>
                   )}
                 </td>
