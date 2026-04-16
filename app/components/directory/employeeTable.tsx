@@ -1,5 +1,6 @@
 import { createClient } from "@/utils/supabase/server";
 import { Pagination } from "@components/directory/pagination";
+import Link from "next/link";
 
 const ITEMS_PER_PAGE = 6;
 
@@ -12,7 +13,7 @@ export async function EmployeeTable({
 }) {
   const supabase = await createClient();
   // TODO: A ENLEVER ( pour check le skeleton )
-  await new Promise((resolve) => setTimeout(resolve, 1000));
+  await new Promise((resolve) => setTimeout(resolve, 300));
   const from = (currentPage - 1) * ITEMS_PER_PAGE;
   const to = from + ITEMS_PER_PAGE - 1;
 
@@ -91,9 +92,11 @@ export async function EmployeeTable({
                   )}
                 </td>
                 <td className="px-6 py-4 text-right">
-                  <button className="text-slate-400 hover:text-brand-600 font-medium text-sm transition-colors">
-                    Éditer
-                  </button>
+                  <Link href={`/directory/${emp.id}/edit`}>
+                    <button className="text-slate-400 hover:text-brand-600 font-medium text-sm transition-colors">
+                      Éditer
+                    </button>
+                  </Link>
                 </td>
               </tr>
             ))}

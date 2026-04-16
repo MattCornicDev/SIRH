@@ -19,11 +19,11 @@ export interface Employee {
   first_name: string;
   last_name: string;
   email: string;
-  job_title: string | null;
-  department: string | null;
+  job_title: string | undefined;
+  department: string | undefined;
   role: EmployeeRole;
   status: EmployeeStatus;
-  start_date: string | null;
+  start_date: string | undefined;
   created_at?: string;
 }
 
