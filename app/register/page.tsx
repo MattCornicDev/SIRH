@@ -52,7 +52,7 @@ export default function RegisterPage() {
 
     try {
       // 1. ÉTAPE AUTH : Création du compte de connexion
-      const { data, error: signUpError } = await supabase.auth.signUp({
+      const { error: signUpError } = await supabase.auth.signUp({
         email,
         password,
       });
@@ -76,7 +76,7 @@ export default function RegisterPage() {
       setTimeout(() => {
         router.push("/directory");
         router.refresh();
-      }, 1500);
+      }, 1000);
     } catch (err: unknown) {
       if (err instanceof Error)
         setError(err.message || "Une erreur est survenue.");

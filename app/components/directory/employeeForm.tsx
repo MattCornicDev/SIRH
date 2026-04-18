@@ -75,6 +75,8 @@ export function EmployeeForm({
     setServerError(null);
 
     try {
+      console.log(activeProfile);
+
       if (!activeProfile?.company_id)
         throw new Error("Erreur de contexte d'entreprise");
 
@@ -106,8 +108,11 @@ export function EmployeeForm({
 
       router.push("/directory");
       router.refresh();
-    } catch (err) {
-      setServerError("Erreur de connexion au serveur.");
+    } catch (err: unknown) {
+      if (err instanceof Error) {
+        setServerError("Erreur de connexion au serveur.");
+        console.error("EmployeeForm error:", err);
+      }
     } finally {
       setIsSubmitting(false);
     }
