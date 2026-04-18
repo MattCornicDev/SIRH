@@ -33,3 +33,20 @@ export interface EmployeeProfile extends Employee {
     name: string;
   } | null;
 }
+
+// Définition stricte des statuts possibles pour éviter les fautes de frappe
+type LeaveStatus = "en_attente" | "approuve" | "refuse";
+
+// Le type complet de la requête de base de données
+export interface LeaveRequestWithEmployee {
+  id: string;
+  leave_type: string;
+  start_date: string;
+  end_date: string;
+  status: LeaveStatus;
+  created_at: string;
+  employee: {
+    first_name: string;
+    last_name: string;
+  } | null; // Supabase peut renvoyer null si l'employé a été supprimé de la BDD
+}
