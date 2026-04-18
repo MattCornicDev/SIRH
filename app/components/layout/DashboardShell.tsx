@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import {
@@ -15,6 +15,7 @@ import {
   PanelLeft,
 } from "lucide-react";
 import { createClient } from "@/utils/supabase/client";
+import { useUserStore } from "@/store/useUserStore";
 
 interface DashboardShellProps {
   children: React.ReactNode;
@@ -36,16 +37,19 @@ export const DashboardShell = ({
   const router = useRouter();
   const pathname = usePathname();
   const supabase = createClient();
-
+  const { fetchUser } = useUserStore();
+  useEffect(() => {
+    fetchUser(); // Si la donnée est déjà là, le store bloquera la requête de lui-même !
+  }, [fetchUser]);
   const navigation = [
     {
       name: "Vue d'ensemble",
-      href: "#",
+      href: "/",
       icon: LayoutDashboard,
-      disabled: true,
+      disabled: false,
     },
     { name: "Annuaire", href: "/directory", icon: Users, disabled: false },
-    { name: "Congés", href: "#", icon: CalendarDays, disabled: true },
+    { name: "Congés", href: "/leaves", icon: CalendarDays, disabled: false },
     { name: "Paramètres", href: "#", icon: Settings, disabled: true },
   ];
 
@@ -96,8 +100,11 @@ export const DashboardShell = ({
 
           <nav className="flex-1 px-4 py-6 space-y-2 overflow-y-auto overflow-x-hidden">
             {navigation.map((item) => {
+              // ✅ LA CORRECTION EST ICI :
               const isActive =
-                pathname.startsWith(item.href) && item.href !== "#";
+                item.href === "/"
+                  ? pathname === "/" // Pour l'accueil, correspondance stricte
+                  : pathname.startsWith(item.href) && item.href !== "#"; // Pour le reste, startsWith
               return (
                 <Link
                   key={item.name}
