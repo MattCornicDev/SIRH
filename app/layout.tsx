@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import { DashboardShell } from "./components/layout/DashboardShell";
+import { DashboardShell } from "../components/layout/DashboardShell";
 import { createClient } from "@/utils/supabase/client";
-import StoreInitializer from "./components/storeInitializer";
+import StoreInitializer from "../components/storeInitializer";
 import { EmployeeProfile } from "@/types";
 
 const geistSans = Geist({

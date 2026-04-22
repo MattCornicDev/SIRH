@@ -2,7 +2,7 @@
 import Link from "next/link";
 import { createClient } from "@/utils/supabase/server";
 import { notFound } from "next/navigation";
-import { EmployeeForm } from "@components/directory/employeeForm";
+import { EmployeeForm } from "@/components/directory/employeeForm";
 import { Employee } from "@/types";
 
 export default async function EditEmployeePage({

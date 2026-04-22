@@ -14,8 +14,8 @@ import {
   Loader2,
 } from "lucide-react";
 
-import { Input } from "@components/ui/Input"; // Vérifiez bien ce chemin d'import
-import { Select } from "@components/ui/Select"; // Vérifiez bien ce chemin d'import
+import { Input } from "@/components/ui/Input"; // Vérifiez bien ce chemin d'import
+import { Select } from "@/components/ui/Select"; // Vérifiez bien ce chemin d'import
 import { createClient } from "@/utils/supabase/client";
 import { useUserStore } from "@/store/useUserStore";
 import { Employee } from "@/types";

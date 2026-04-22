@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import { redirect, useRouter } from "next/navigation";
 import { Mail, Lock, Loader2, ShieldAlert } from "lucide-react";
-import { Input } from "@components/ui/Input";
+import { Input } from "@/components/ui/Input";
 import { createClient } from "@/utils/supabase/client";
 
 export default function LoginPage() {

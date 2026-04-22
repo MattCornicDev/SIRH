@@ -12,7 +12,7 @@ import {
   Building,
   User,
 } from "lucide-react";
-import { Input } from "@components/ui/Input";
+import { Input } from "@/components/ui/Input";
 import { createClient } from "@/utils/supabase/client";
 
 export default function RegisterPage() {

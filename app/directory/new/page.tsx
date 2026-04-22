@@ -1,6 +1,6 @@
 "use client";
 import { useRouter } from "next/navigation";
-import { EmployeeForm } from "@components/directory/employeeForm";
+import { EmployeeForm } from "@/components/directory/employeeForm";
 
 export default function NewEmployeePage() {
   const router = useRouter();

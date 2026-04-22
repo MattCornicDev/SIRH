@@ -1,5 +1,5 @@
 import { createClient } from "@/utils/supabase/server";
-import { Pagination } from "@components/directory/pagination";
+import { Pagination } from "@/components/directory/pagination";
 import Link from "next/link";
 
 const ITEMS_PER_PAGE = 6;

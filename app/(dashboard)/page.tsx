@@ -1,5 +1,5 @@
-import { EmployeeTable } from "@components/directory/employeeTable";
-import { LeaveApprovals } from "@components/leaves/leaveApprovals";
+import { EmployeeTable } from "@/components/directory/employeeTable";
+import { LeaveApprovals } from "@/components/leaves/leaveApprovals";
 import { Users, Calendar, Briefcase } from "lucide-react";
 
 export default function DashboardPage() {

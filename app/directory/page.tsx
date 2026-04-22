@@ -1,8 +1,8 @@
 import Link from "next/link";
 import { Suspense } from "react";
-import { SearchFilter } from "@components/directory/searchFilter";
-import { EmployeeTable } from "@components/directory/employeeTable";
-import { TableSkeleton } from "@components/directory/tableSkeleton";
+import { SearchFilter } from "@/components/directory/searchFilter";
+import { EmployeeTable } from "@/components/directory/employeeTable";
+import { TableSkeleton } from "@/components/directory/tableSkeleton";
 
 export default async function DirectoryPage({
   searchParams,
